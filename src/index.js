@@ -1,8 +1,12 @@
-export const quickSort = (nums, low, high) => {
+const quickSort = nums => {
+  return quickSortInner(nums, 0, nums.length - 1);
+};
+
+const quickSortInner = (nums, low, high) => {
   if (low >= high) return;
   let pivot = partition(nums, low, high);
-  quickSort(nums, low, pivot - 1);
-  quickSort(nums, pivot + 1, high);
+  quickSortInner(nums, low, pivot - 1);
+  quickSortInner(nums, pivot + 1, high);
   return nums;
 };
 
@@ -11,8 +15,8 @@ const partition = (nums, low, high) => {
   let i = low,
     j = high + 1;
   while (true) {
-    while (nums[++i][0] < nums[pivot][0]) if (i === high) break;
-    while (nums[--j][0] > nums[pivot][0]) if (j === low) break;
+    while (nums[++i] < nums[pivot]) if (i === high) break;
+    while (nums[--j] > nums[pivot]) if (j === low) break;
     if (i >= j) break;
     exchange(nums, i, j);
   }
@@ -26,3 +30,5 @@ const exchange = (nums, a, b) => {
   nums[a] = nums[b];
   nums[b] = tmp;
 };
+
+export default quickSort;
